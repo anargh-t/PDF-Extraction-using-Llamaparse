@@ -1,0 +1,4 @@
+flask
+llamaparse
+pdf2image
+pandas

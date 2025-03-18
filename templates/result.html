@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extracted Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Extracted Text</h2>
+        <pre>{{ text }}</pre>
+
+        <h2>Extracted Tables</h2>
+        {% if tables %}
+            {% for table in tables %}
+                <table border="1">
+                    {% for row in table.values %}
+                        <tr>
+                            {% for cell in row %}
+                                <td>{{ cell }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+                <br>
+            {% endfor %}
+        {% else %}
+            <p>No tables found.</p>
+        {% endif %}
+
+        <h2>Query Document</h2>
+        <form action="/query" method="post">
+            <input type="hidden" name="pdf_file" value="{{ filename }}">
+            <input type="text" name="query" placeholder="Ask a question">
+            <button type="submit">Ask</button>
+        </form>
+
+        <br>
+        <a href="/">Upload Another PDF</a>
+        <a href="/download/{{ filename }}">Download PDF</a>
+    </div>
+</body>
+</html>
